@@ -1,0 +1,23 @@
+{
+  "name": "node-todo-rest-api",
+  "version": "1.0.0",
+  "description": "A REST API for managing todo items using Node.js, TypeScript, and MongoDB.",
+  "main": "src/server.ts",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "build": "tsc",
+    "dev": "ts-node-dev src/server.ts"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.0.0",
+    "typescript": "^4.1.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
