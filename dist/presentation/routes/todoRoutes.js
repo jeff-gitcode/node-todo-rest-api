@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = setTodoRoutes;
 const express_1 = require("express");
 const TodoController_1 = require("@presentation/controllers/TodoController");
 const TodoRepository_1 = require("@infrastructure/repositories/TodoRepository");
@@ -16,4 +17,3 @@ router.delete('/todos/:id', todoController.remove.bind(todoController));
 function setTodoRoutes(app) {
     app.use('/api', router);
 }
-exports.default = setTodoRoutes;
