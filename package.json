@@ -4,9 +4,9 @@
   "description": "A REST API for managing todo items using Node.js, TypeScript, and MongoDB.",
   "main": "src/server.ts",
   "scripts": {
-    "start": "ts-node src/server.ts",
+    "start": "ts-node -r tsconfig-paths/register src/server.ts",
     "build": "tsc",
-    "dev": "ts-node-dev src/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -16,6 +16,7 @@
     "@types/express": "^5.0.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.2"
   },
   "author": "",
