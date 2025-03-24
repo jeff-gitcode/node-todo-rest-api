@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const mongoConnection_1 = require("./infrastructure/database/mongoConnection");
 const todoRoutes_1 = __importDefault(require("@presentation/routes/todoRoutes"));
