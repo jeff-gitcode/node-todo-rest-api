@@ -13,11 +13,14 @@ export class GetAlbumByIdHandler {
             const response = await axios.get<Album>(`${this.jsonPlaceholderUrl}/${query.id}`);
             const album = response.data;
             return new Album(album.userId, album.id, album.title);
-        } catch (error: any) {
-            if (error.response && error.response.status === 404) {
-                return null; // Album not found
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                if (error.response && error.response.status === 404) {
+                    return null; // Album not found
+                }
+                throw new Error('Error fetching album: ' + error.message);
             }
-            throw new Error('Error fetching album: ' + error.message);
+            throw new Error('An unexpected error occurred');
         }
     }
 }

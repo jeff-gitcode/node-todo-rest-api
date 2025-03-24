@@ -10,6 +10,9 @@
     "rootDir": "./src",
     "baseUrl": "./src",
     "paths": {
+      "@/*": [
+        "src/*"
+      ],
       "@application/*": [
         "application/*"
       ],

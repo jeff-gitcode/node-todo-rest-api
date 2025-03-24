@@ -1,18 +1,6 @@
 import { ITodoRepository } from "@application/interfaces/ITodoRepository";
 import { Todo } from "@domain/entities/Todo";
-import mongoose, { Schema, Document } from "mongoose";
-
-// Define the Mongoose schema for the Todo entity
-interface ITodoDocument extends Document {
-    title: string;
-}
-
-const TodoSchema = new Schema<ITodoDocument>({
-    title: { type: String, required: true }
-});
-
-// Create the Mongoose model
-const TodoModel = mongoose.model<ITodoDocument>('Todo', TodoSchema);
+import { TodoModel } from "@infrastructure/model/TodoModel";
 
 export class TodoRepository implements ITodoRepository {
     async create(todo: Todo): Promise<Todo> {
