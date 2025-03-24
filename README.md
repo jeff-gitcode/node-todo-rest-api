@@ -80,6 +80,30 @@ node-todo-rest-api
   - URL Parameter: `id` of the todo to update
   - Request Body: `{ "title": "Updated Todo Title"}`
 
+## Request Validation
+
+This API uses `Joi` for request validation. Below are the validation rules for each endpoint:
+
+- **Create Todo** (`POST /todos`):
+  - `title`: Required, must not be empty.
+
+- **Update Todo** (`PUT /todos/:id`):
+  - `title`: Required, must not be empty.
+
+If a request fails validation, the API will return a `400 Bad Request` response with details about the validation errors.
+
+### Example Error Response:
+```json
+{
+  "errors": [
+    {
+      "message": "Title is required",
+      "path": ["title"]
+    }
+  ]
+}
+```
+
 ## API Documentation
 The API is documented using Swagger. You can access the interactive Swagger UI at:
 http://localhost:3000/api-docs
@@ -88,3 +112,10 @@ http://localhost:3000/api-docs
 Below is a screenshot of the Swagger UI for this API:
 
 ![Swagger UI Preview](doc/node-todo-api-swagger.png)
+
+## Git to remove local cache
+```
+git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'
+git push -u origin master

@@ -1,4 +1,3 @@
-
 @id = 67e0f5c74e1e3b20b8af223d 
 
 ### Create a new Todo
@@ -26,3 +25,15 @@ Content-Type: application/json
 ### Delete a Todo
 # Replace {{id}} with the actual ID of the Todo you want to delete
 DELETE http://localhost:3000/api/todos/{{id}}
+
+### Create a new Todo (Invalid - Missing Title)
+POST http://localhost:3000/api/todos
+Content-Type: application/json
+
+{}
+
+### Update Todo (Invalid - Missing Title)
+PUT http://localhost:3000/api/todos/{{id}}
+Content-Type: application/json
+
+{}
