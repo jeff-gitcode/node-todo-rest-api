@@ -39,18 +39,24 @@ node-todo-rest-api
 
 3. **Set up MongoDB:**
    Ensure you have a MongoDB instance running. You can use a local instance or a cloud service like MongoDB Atlas.
+   ```
+   docker-compose up -d
+   ```
 
 4. **Configure environment variables:**
    Create a `.env` file in the root directory and add your MongoDB connection string:
    ```
-   MONGODB_URI=<your-mongodb-connection-string>
+   MONGODB_URI=mongodb://admin:admin@localhost:27017/todoDB?authSource=admin
    ```
 
 5. **Run the application:**
    ```
    npm start
    ```
-
+6. Development mode: To run the application in development mode with hot-reloading:
+   ```
+   npm run dev
+   ```
 ## API Endpoints
 
 - **Create Todo**
@@ -65,6 +71,11 @@ node-todo-rest-api
   - **DELETE** `/todos/:id`
   - URL Parameter: `id` of the todo to delete
 
-## License
-
-This project is licensed under the MIT License.
+- **Get Todo by ID**
+  - **GET** `/todos/:id`
+  - URL Parameter: `id` of the todo to retrieve
+  
+- **Update Todo**
+  - **PUT** `/todos/:id`
+  - URL Parameter: `id` of the todo to update
+  - Request Body: `{ "title": "Updated Todo Title"}`
