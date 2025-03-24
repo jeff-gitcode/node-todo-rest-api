@@ -1,0 +1,17 @@
+### Sign up a new user
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### Sign in a user
+POST http://localhost:3000/api/auth/signin
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}

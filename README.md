@@ -57,6 +57,39 @@ node-todo-rest-api
    ```
    npm run dev
    ```
+## Required Packages
+Below is a list of all the required packages for this project:
+
+### Dependencies
+axios: For making HTTP requests to external APIs.
+bcrypt: For hashing passwords.
+dotenv: For managing environment variables.
+express: Web framework for building REST APIs.
+joi: For request validation.
+jsonwebtoken: For generating and verifying JWT tokens.
+mongoose: For interacting with MongoDB.
+swagger-jsdoc: For generating Swagger documentation.
+swagger-ui-express: For serving Swagger UI.
+
+### Dev Dependencies
+@eslint/js: ESLint configuration for JavaScript.
+@types/bcrypt: TypeScript types for bcrypt.
+@types/express: TypeScript types for Express.
+@types/jest: TypeScript types for Jest.
+@types/jsonwebtoken: TypeScript types for JWT.
+@types/swagger-jsdoc: TypeScript types for Swagger JSDoc.
+@types/swagger-ui-express: TypeScript types for Swagger UI Express.
+eslint: For linting the codebase.
+globals: Provides global variables for ESLint.
+husky: For managing Git hooks.
+jest: Testing framework.
+mockingoose: For mocking Mongoose models in tests.
+ts-jest: Jest preset for TypeScript.
+ts-node: For running TypeScript files directly.
+ts-node-dev: For hot-reloading during development.
+tsconfig-paths: For resolving TypeScript path aliases.
+typescript: TypeScript compiler.
+
 ## API Endpoints
 
 ### Todo Endpoints
@@ -105,6 +138,29 @@ node-todo-rest-api
   - URL Parameter: `id` of the album to update
   - Request Body: `{ "title": "Updated Album Title"}`
       
+### Authentication Endpoints
+
+- **Sign Up**
+  - **POST** `/auth/signup`
+  - Request Body:
+    ```json
+    {
+      "username": "testuser",
+      "password": "password123"
+    }
+    ```
+  - Response: `{ "message": "User created successfully" }`
+
+- **Sign In**
+  - **POST** `/auth/signin`
+  - Request Body:
+    ```json
+    {
+      "username": "testuser",
+      "password": "password123"
+    }
+    ```
+  - Response: `{ "token": "jwt_token_here" }`
 
 ## Request Validation
 

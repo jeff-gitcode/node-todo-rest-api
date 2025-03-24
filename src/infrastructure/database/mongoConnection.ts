@@ -1,40 +1,52 @@
-// import { MongoClient } from 'mongodb';
-
-// const uri = 'your_mongodb_connection_string_here';
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// export const connectToMongo = async () => {
-//     try {
-//         await client.connect();
-//         console.log('Connected to MongoDB');
-//     } catch (error) {
-//         console.error('MongoDB connection error:', error);
-//         throw error;
-//     }
-// };
-
-// export const getMongoClient = () => {
-//     return client;
-// };
+// use in-memory MongoDB for testing
 
 import mongoose from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
-const uri = process.env.MONGODB_URI || 'your_mongodb_connection_string_here';
+let mongoServer: MongoMemoryServer | null = null;
 
-export const connectToMongo = async () => {
+export const connectToMongo = async (): Promise<void> => {
+    const isTestEnvironment = process.env.NODE_ENV === 'test';
+
     try {
-        console.log('Connecting to MongoDB using Mongoose', uri);
-        await mongoose.connect(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log('Connected to MongoDB using Mongoose');
+        if (isTestEnvironment) {
+            // Use in-memory MongoDB for testing
+            mongoServer = await MongoMemoryServer.create();
+            const uri = mongoServer.getUri();
+            console.log('Connecting to in-memory MongoDB:', uri);
+            await mongoose.connect(uri, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                useFindAndModify: false, // Add this option
+            });
+            console.log('Connected to in-memory MongoDB');
+        } else {
+            // Use real MongoDB for non-test environments
+            const uri = process.env.MONGODB_URI || 'your_mongodb_connection_string_here';
+            console.log('Connecting to MongoDB:', uri);
+            await mongoose.connect(uri, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                useFindAndModify: false, // Add this option
+            });
+        }
+        console.log('Connected to MongoDB');
     } catch (error) {
         console.error('MongoDB connection error:', error);
         throw error;
     }
 };
 
-export const getMongoClient = () => {
-    return mongoose.connection;
+export const disconnectFromMongo = async (): Promise<void> => {
+    try {
+        await mongoose.disconnect();
+        console.log('Disconnected from MongoDB');
+        if (mongoServer) {
+            await mongoServer.stop();
+            console.log('In-memory MongoDB stopped');
+        }
+    } catch (error) {
+        console.error('Error disconnecting from MongoDB:', error);
+        throw error;
+    }
 };
