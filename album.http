@@ -1,0 +1,28 @@
+### Get all Albums
+GET http://localhost:3000/api/albums
+
+### Get Album by ID
+GET http://localhost:3000/api/albums/1
+
+### Create a new Album
+POST http://localhost:3000/api/albums
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "title": "New Album"
+}
+
+### Update an Album
+PUT http://localhost:3000/api/albums/1
+Content-Type: application/json
+
+{
+  "title": "Updated Album Title"
+}
+
+### Delete an Album
+DELETE http://localhost:3000/api/albums/1
+
+### Get Album by Invalid ID
+GET http://localhost:3000/api/albums/1

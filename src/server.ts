@@ -5,6 +5,7 @@ import setTodoRoutes from '@presentation/routes/todoRoutes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerConfig from './swaggerConfig';
+import setAlbumRoutes from '@presentation/routes/albumRoutes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ const startServer = async () => {
     console.log('Connected to MongoDB');
 
     setTodoRoutes(app);
+    setAlbumRoutes(app); // Register album routes
 
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);

@@ -3,11 +3,11 @@ import { TodoController } from '@presentation/controllers/TodoController';
 
 import { TodoRepository } from '@infrastructure/repositories/TodoRepository';
 import { Todo } from '@domain/entities/Todo';
-import { createTodo } from '@application/use-cases/createTodo';
-import { getTodos } from '@application/use-cases/getTodos';
-import { deleteTodo } from '@application/use-cases/deleteTodo';
-import { getTodoById } from '@application/use-cases/getTodoById';
-import { updateTodo } from '@application/use-cases/updateTodo';
+import { createTodo } from '@application/use-cases/todo/createTodo';
+import { getTodos } from '@application/use-cases/todo/getTodos';
+import { deleteTodo } from '@application/use-cases/todo/deleteTodo';
+import { getTodoById } from '@application/use-cases/todo/getTodoById';
+import { updateTodo } from '@application/use-cases/todo/updateTodo';
 import { createTodoSchema, updateTodoSchema } from '@presentation/middleware/todoValidation';
 import { validateRequest } from '@presentation/middleware/validationMiddleware';
 
