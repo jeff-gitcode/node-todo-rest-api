@@ -28,4 +28,18 @@ describe('CreateAlbumHandler', () => {
             { userId: 1, title: 'New Album' }
         );
     });
+
+    it('should throw an error if the API call fails', async () => {
+        // Arrange
+        const command = new CreateAlbumCommand(1, 'New Album');
+        const handler = new CreateAlbumHandler();
+        mockedAxios.post.mockRejectedValue(new Error('API Error'));
+
+        // Act & Assert
+        await expect(handler.handle(command)).rejects.toThrow('API Error');
+        expect(mockedAxios.post).toHaveBeenCalledWith(
+            'https://jsonplaceholder.typicode.com/albums',
+            { userId: 1, title: 'New Album' }
+        );
+    });
 });

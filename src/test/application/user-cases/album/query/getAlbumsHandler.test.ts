@@ -9,7 +9,7 @@ describe('GetAlbumsHandler', () => {
     it('should fetch all albums', async () => {
         // Arrange
         const handler = new GetAlbumsHandler();
-        const query = new GetAlbumsQuery();
+        const query = new GetAlbumsQuery(); // Create an instance of GetAlbumsQuery
         const mockResponse = {
             data: [
                 { userId: 1, id: 1, title: 'Album 1' },
@@ -19,12 +19,23 @@ describe('GetAlbumsHandler', () => {
         mockedAxios.get.mockResolvedValue(mockResponse);
 
         // Act
-        const result = await handler.handle(query);
+        const result = await handler.handle(query); // Pass the query instance
 
         // Assert
         expect(result).toHaveLength(2);
         expect(result[0]).toBeInstanceOf(Album);
         expect(result[0].title).toBe('Album 1');
+        expect(mockedAxios.get).toHaveBeenCalledWith('https://jsonplaceholder.typicode.com/albums');
+    });
+
+    it('should throw an error if the API call fails', async () => {
+        // Arrange
+        const handler = new GetAlbumsHandler();
+        const query = new GetAlbumsQuery(); // Create an instance of GetAlbumsQuery
+        mockedAxios.get.mockRejectedValue(new Error('API Error'));
+
+        // Act & Assert
+        await expect(handler.handle(query)).rejects.toThrow('API Error');
         expect(mockedAxios.get).toHaveBeenCalledWith('https://jsonplaceholder.typicode.com/albums');
     });
 });
