@@ -79,3 +79,12 @@ node-todo-rest-api
   - **PUT** `/todos/:id`
   - URL Parameter: `id` of the todo to update
   - Request Body: `{ "title": "Updated Todo Title"}`
+
+## API Documentation
+The API is documented using Swagger. You can access the interactive Swagger UI at:
+http://localhost:3000/api-docs
+
+## Swagger UI Screenshot
+Below is a screenshot of the Swagger UI for this API:
+
+![Swagger UI Preview](doc/node-todo-api-swagger.png)
