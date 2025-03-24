@@ -1,6 +1,6 @@
 # Node Todo REST API
 
-This project is a Todo REST API built using Node.js, TypeScript, and MongoDB, following the Clean Architecture principles. It provides a simple interface for managing todo items.
+This project is a Todo REST API built using Node.js, TypeScript, and MongoDB, following the Clean Architecture principles. It provides a simple interface for managing todo items and interacting with albums from JSONPlaceholder.
 
 ## Project Structure
 
@@ -59,6 +59,8 @@ node-todo-rest-api
    ```
 ## API Endpoints
 
+### Todo Endpoints
+
 - **Create Todo**
   - **POST** `/todos`
   - Request Body: `{ "title": "Todo Title", "completed": false }`
@@ -79,6 +81,30 @@ node-todo-rest-api
   - **PUT** `/todos/:id`
   - URL Parameter: `id` of the todo to update
   - Request Body: `{ "title": "Updated Todo Title"}`
+
+### Album Endpoints
+
+- **Create Album**
+  - **POST** `/albums`
+  - Request Body: `{ "title": "Album Title" }`
+
+- **Get Albums**
+  - **GET** `/albums`
+  - Response: Array of albums
+
+- **Delete Album**
+  - **DELETE** `/albums/:id`
+  - URL Parameter: `id` of the album to delete
+
+- **Get Album by ID**
+  - **GET** `/albums/:id`
+  - URL Parameter: `id` of the album to retrieve
+
+- **Update Album**
+  - **PUT** `/albums/:id`
+  - URL Parameter: `id` of the album to update
+  - Request Body: `{ "title": "Updated Album Title"}`
+      
 
 ## Request Validation
 
@@ -119,3 +145,4 @@ git rm -r --cached .
 git add .
 git commit -m 'update .gitignore'
 git push -u origin master
+
