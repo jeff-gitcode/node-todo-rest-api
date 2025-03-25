@@ -40,6 +40,7 @@
     "lint": "^0.8.19",
     "mockingoose": "^2.16.2",
     "mongodb-memory-server": "^10.1.4",
+    "nock": "^14.0.1",
     "supertest": "^7.1.0",
     "ts-jest": "^29.3.0",
     "ts-node": "^10.9.2",
