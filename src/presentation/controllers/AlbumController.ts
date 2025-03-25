@@ -4,6 +4,7 @@ import { GetAlbumsHandler, GetAlbumsQuery } from '@application/use-cases/album/q
 import { CreateAlbumHandler, CreateAlbumCommand } from '@application/use-cases/album/command/createAlbumHandler';
 import { UpdateAlbumHandler, UpdateAlbumCommand } from '@application/use-cases/album/command/updateAlbumHandler';
 import { DeleteAlbumHandler, DeleteAlbumCommand } from '@application/use-cases/album/command/deleteAlbumHandler';
+import { PublishAlbumCommand, PublishAlbumHandler } from '@application/use-cases/album/command/publishAlbumHandler';
 
 export class AlbumController {
     constructor(
@@ -43,6 +44,12 @@ export class AlbumController {
         try {
             const command = new CreateAlbumCommand(req.body.userId, req.body.title);
             const album = await this.createAlbumHandler.handle(command);
+
+            // Publish album data to Redis
+            const publishCommand = new PublishAlbumCommand(album.userId, album.title);
+            const publishHandler = new PublishAlbumHandler();
+            await publishHandler.handle(publishCommand);
+
             res.status(201).json(album);
         } catch (error: any) {
             res.status(500).json({ message: 'Error creating album', error: error.message });
