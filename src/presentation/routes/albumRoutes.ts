@@ -21,6 +21,8 @@ const albumController = new AlbumController(
  * /albums:
  *   get:
  *     summary: Get all albums
+ *     tags:
+ *       - Album
  */
 router.get('/albums', albumController.getAll.bind(albumController));
 
@@ -29,6 +31,8 @@ router.get('/albums', albumController.getAll.bind(albumController));
  * /albums/{id}:
  *   get:
  *     summary: Get an album by ID
+ *     tags:
+ *       - Album
  */
 router.get('/albums/:id', albumController.getById.bind(albumController));
 
@@ -37,6 +41,8 @@ router.get('/albums/:id', albumController.getById.bind(albumController));
  * /albums:
  *   post:
  *     summary: Create a new album
+ *     tags:
+ *       - Album
  */
 router.post('/albums', albumController.create.bind(albumController));
 
@@ -45,6 +51,8 @@ router.post('/albums', albumController.create.bind(albumController));
  * /albums/{id}:
  *   put:
  *     summary: Update an album
+ *     tags:
+ *       - Album
  */
 router.put('/albums/:id', albumController.update.bind(albumController));
 
@@ -53,6 +61,8 @@ router.put('/albums/:id', albumController.update.bind(albumController));
  * /albums/{id}:
  *   delete:
  *     summary: Delete an album
+ *     tags:
+ *       - Album
  */
 router.delete('/albums/:id', albumController.delete.bind(albumController));
 

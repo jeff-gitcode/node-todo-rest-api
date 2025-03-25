@@ -15,6 +15,24 @@ const authController = new AuthController(
  * /auth/signup:
  *   post:
  *     summary: Sign up a new user
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: Bad request
  */
 router.post('/auth/signup', authController.signup.bind(authController));
 
@@ -23,6 +41,31 @@ router.post('/auth/signup', authController.signup.bind(authController));
  * /auth/signin:
  *   post:
  *     summary: Sign in a user
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User signed in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized
  */
 router.post('/auth/signin', authController.signin.bind(authController));
 

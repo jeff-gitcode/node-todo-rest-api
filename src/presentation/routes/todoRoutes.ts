@@ -13,14 +13,14 @@ import { validateRequest } from '@presentation/middleware/validationMiddleware';
 import { authenticateJWT } from '@presentation/middleware/authMiddleware'; // Import the JWT middleware
 
 const router = Router();
-const todoRepository = new TodoRepository(); // No need to pass a database client when using Mongoose
+const todoRepository = new TodoRepository();
 
 const todoController = new TodoController(
     (todo: { title: string }): Promise<Todo> => createTodo(todo, todoRepository),
     (): Promise<Todo[]> => getTodos(todoRepository),
     (id: string): Promise<void> => deleteTodo(id, todoRepository),
-    (id: string): Promise<Todo | null> => getTodoById(id, todoRepository), // New method
-    (id: string, todo: Partial<Todo>): Promise<Todo | null> => updateTodo(id, todo, todoRepository) // New method
+    (id: string): Promise<Todo | null> => getTodoById(id, todoRepository),
+    (id: string, todo: Partial<Todo>): Promise<Todo | null> => updateTodo(id, todo, todoRepository)
 );
 
 /**
@@ -28,6 +28,34 @@ const todoController = new TodoController(
  * /todos:
  *   post:
  *     summary: Create a new Todo
+ *     tags:
+ *       - Todo
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: "Sample Todo"
+ *     responses:
+ *       201:
+ *         description: Todo created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   example: "unique-id"
+ *                 title:
+ *                   type: string
+ *                   example: "Sample Todo"
+ *       400:
+ *         description: Bad request
  */
 router.post(
     '/todos',
@@ -41,22 +69,108 @@ router.post(
  * /todos:
  *   get:
  *     summary: Get all Todos
+ *     tags:
+ *       - Todo
+ *     responses:
+ *       200:
+ *         description: List of all Todos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     example: "unique-id"
+ *                   title:
+ *                     type: string
+ *                     example: "Sample Todo"
+ *       401:
+ *         description: Unauthorized
  */
-router.get('/todos', authenticateJWT, todoController.getAll.bind(todoController)); // Secure this route
+router.get('/todos', authenticateJWT, todoController.getAll.bind(todoController));
 
 /**
  * @swagger
  * /todos/{id}:
  *   get:
  *     summary: Get a Todo by ID
+ *     tags:
+ *       - Todo
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the Todo to retrieve
+ *     responses:
+ *       200:
+ *         description: Todo retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   example: "unique-id"
+ *                 title:
+ *                   type: string
+ *                   example: "Sample Todo"
+ *       404:
+ *         description: Todo not found
+ *       401:
+ *         description: Unauthorized
  */
-router.get('/todos/:id', authenticateJWT, todoController.getById.bind(todoController)); // Secure this route
+router.get('/todos/:id', authenticateJWT, todoController.getById.bind(todoController));
 
 /**
  * @swagger
  * /todos/{id}:
  *   put:
  *     summary: Update a Todo
+ *     tags:
+ *       - Todo
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the Todo to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: "Updated Todo Title"
+ *     responses:
+ *       200:
+ *         description: Todo updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   example: "unique-id"
+ *                 title:
+ *                   type: string
+ *                   example: "Updated Todo Title"
+ *       404:
+ *         description: Todo not found
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
  */
 router.put(
     '/todos/:id',
@@ -70,9 +184,25 @@ router.put(
  * /todos/{id}:
  *   delete:
  *     summary: Delete a Todo
+ *     tags:
+ *       - Todo
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the Todo to delete
+ *     responses:
+ *       204:
+ *         description: Todo deleted successfully
+ *       404:
+ *         description: Todo not found
+ *       401:
+ *         description: Unauthorized
  */
-router.delete('/todos/:id', authenticateJWT, todoController.remove.bind(todoController)); // Secure this route
+router.delete('/todos/:id', authenticateJWT, todoController.remove.bind(todoController));
 
-export default function setTodoRoutes(app: Application): void { // Explicitly type 'app'
+export default function setTodoRoutes(app: Application): void {
     app.use('/api', router);
 }
