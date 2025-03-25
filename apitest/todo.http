@@ -1,8 +1,31 @@
 @id = 67e1f12f40c84d748819a64b 
 
+### Sign up a new user
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### Sign in a user
+# @name login
+POST http://localhost:3000/api/auth/signin
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+### Get User Profile Request:
+@token = {{login.response.body.$.token}}
+
 ### Create a new Todo
 POST http://localhost:3000/api/todos
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "title": "Sample Todo"
@@ -10,13 +33,19 @@ Content-Type: application/json
 
 ### Get all Todos
 GET http://localhost:3000/api/todos
+Authorization: Bearer {{token}}
+
+### Get all Todos without Token
+GET http://localhost:3000/api/todos
 
 ### Get Todo by ID
 GET http://localhost:3000/api/todos/{{id}}
+Authorization: Bearer {{token}}
 
 ### Update Todo
 PUT http://localhost:3000/api/todos/{{id}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "title": "Updated Todo Title"
@@ -25,15 +54,18 @@ Content-Type: application/json
 ### Delete a Todo
 # Replace {{id}} with the actual ID of the Todo you want to delete
 DELETE http://localhost:3000/api/todos/{{id}}
+Authorization: Bearer {{token}}
 
 ### Create a new Todo (Invalid - Missing Title)
 POST http://localhost:3000/api/todos
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {}
 
 ### Update Todo (Invalid - Missing Title)
 PUT http://localhost:3000/api/todos/{{id}}
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {}

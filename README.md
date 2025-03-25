@@ -95,26 +95,43 @@ typescript: TypeScript compiler.
 
 ## API Endpoints
 
-### Todo Endpoints
+### Todo Endpoints (Secured with JWT)
+
+All `Todo` endpoints require a valid JWT token in the `Authorization` header. You can obtain the token by signing in through the `/auth/signin` endpoint.
+
+#### Example Authorization Header:
+```
+Authorization: Bearer <jwt_token_here>
+```
 
 - **Create Todo**
   - **POST** `/todos`
+  - **Headers**:
+    - `Authorization`: Bearer `<your_jwt_token>`
   - Request Body: `{ "title": "Todo Title", "completed": false }`
 
 - **Get Todos**
   - **GET** `/todos`
+  - **Headers**:
+    - `Authorization`: Bearer `<your_jwt_token>`
   - Response: Array of todos
 
 - **Delete Todo**
   - **DELETE** `/todos/:id`
+  - **Headers**:
+    - `Authorization`: Bearer `<your_jwt_token>`
   - URL Parameter: `id` of the todo to delete
 
 - **Get Todo by ID**
   - **GET** `/todos/:id`
+  - **Headers**:
+    - `Authorization`: Bearer `<your_jwt_token>`
   - URL Parameter: `id` of the todo to retrieve
   
 - **Update Todo**
   - **PUT** `/todos/:id`
+  - **Headers**:
+    - `Authorization`: Bearer `<your_jwt_token>`
   - URL Parameter: `id` of the todo to update
   - Request Body: `{ "title": "Updated Todo Title"}`
 

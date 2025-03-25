@@ -10,6 +10,7 @@ import { getTodoById } from '@application/use-cases/todo/getTodoById';
 import { updateTodo } from '@application/use-cases/todo/updateTodo';
 import { createTodoSchema, updateTodoSchema } from '@presentation/middleware/todoValidation';
 import { validateRequest } from '@presentation/middleware/validationMiddleware';
+import { authenticateJWT } from '@presentation/middleware/authMiddleware'; // Import the JWT middleware
 
 const router = Router();
 const todoRepository = new TodoRepository(); // No need to pass a database client when using Mongoose
@@ -30,6 +31,7 @@ const todoController = new TodoController(
  */
 router.post(
     '/todos',
+    authenticateJWT, // Secure this route
     validateRequest(createTodoSchema),
     todoController.create.bind(todoController)
 );
@@ -40,7 +42,7 @@ router.post(
  *   get:
  *     summary: Get all Todos
  */
-router.get('/todos', todoController.getAll.bind(todoController));
+router.get('/todos', authenticateJWT, todoController.getAll.bind(todoController)); // Secure this route
 
 /**
  * @swagger
@@ -48,7 +50,7 @@ router.get('/todos', todoController.getAll.bind(todoController));
  *   get:
  *     summary: Get a Todo by ID
  */
-router.get('/todos/:id', todoController.getById.bind(todoController));
+router.get('/todos/:id', authenticateJWT, todoController.getById.bind(todoController)); // Secure this route
 
 /**
  * @swagger
@@ -58,6 +60,7 @@ router.get('/todos/:id', todoController.getById.bind(todoController));
  */
 router.put(
     '/todos/:id',
+    authenticateJWT, // Secure this route
     validateRequest(updateTodoSchema),
     todoController.update.bind(todoController)
 );
@@ -68,7 +71,7 @@ router.put(
  *   delete:
  *     summary: Delete a Todo
  */
-router.delete('/todos/:id', todoController.remove.bind(todoController));
+router.delete('/todos/:id', authenticateJWT, todoController.remove.bind(todoController)); // Secure this route
 
 export default function setTodoRoutes(app: Application): void { // Explicitly type 'app'
     app.use('/api', router);
