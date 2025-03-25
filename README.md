@@ -85,6 +85,8 @@ globals: Provides global variables for ESLint.
 husky: For managing Git hooks.
 jest: Testing framework.
 mockingoose: For mocking Mongoose models in tests.
+nock: For mocking HTTP requests in tests.
+mongodb-memory-server: For in-memory MongoDB during tests.
 ts-jest: Jest preset for TypeScript.
 ts-node: For running TypeScript files directly.
 ts-node-dev: For hot-reloading during development.
