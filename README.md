@@ -1,6 +1,6 @@
 # Node Todo REST API
 
-This project is a Todo REST API built using Node.js, TypeScript, and MongoDB, following the Clean Architecture principles. It provides a simple interface for managing todo items and interacting with albums from JSONPlaceholder.
+This project is a Todo REST API built using Node.js, TypeScript, and MongoDB, following the Clean Architecture principles. It provides a simple interface for managing todo items, interacting with albums from JSONPlaceholder, and user authentication with JWT.
 
 ## Project Structure
 
@@ -38,7 +38,7 @@ node-todo-rest-api
    ```
 
 3. **Set up MongoDB:**
-   Ensure you have a MongoDB instance running. You can use a local instance or a cloud service like MongoDB Atlas.
+   Ensure you have a MongoDB instance running. You can use a local instance in memory mongodb by setting NODE_ENV=test or a cloud service like MongoDB Atlas.
    ```
    docker-compose up -d
    ```
@@ -77,6 +77,7 @@ swagger-ui-express: For serving Swagger UI.
 @types/express: TypeScript types for Express.
 @types/jest: TypeScript types for Jest.
 @types/jsonwebtoken: TypeScript types for JWT.
+@types/supertest: TypeScript types for Supertest.
 @types/swagger-jsdoc: TypeScript types for Swagger JSDoc.
 @types/swagger-ui-express: TypeScript types for Swagger UI Express.
 eslint: For linting the codebase.

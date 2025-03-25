@@ -9,4 +9,5 @@ module.exports = {
         '^@presentation/(.*)$': '<rootDir>/src/presentation/$1',
     },
     testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+    setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'], // Global setup for tests
 };
